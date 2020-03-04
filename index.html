@@ -1,15 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <script src="moment.js"></script>
+    <link href="stylesheet.css" rel="stylesheet"/>
+    <title>
+      Twiddler
+    </title>
   </head>
   <body>
+
+    <div class ="wrapper">
+      <div class= "banner">Twiddler</div>
+      <div class= "mainbody">
+        <div class="userStream">Now viewing:
+          <div class="user"></div>
+        </div>
+        <div class="twitterStream">Latest Tweets:
+          <div class="feed"></div>
+        </div>
+
+
+      <div class="twitterStream"></div>
+      <div class="blue-box"></div>
+      <div class="clear">
+      
+    </div>
     <script>
 
       $(document).ready(function(){
         var $body = $('body');
-        $body.html('');
+        $body.html();
  
 
         // Displays the initial tweets in streams.home
@@ -19,11 +42,11 @@
         var counter = 0;
         while (index >= 0) {
           var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          var $timestamp = $('<div></div>');
+          var $tweet = $('<div class= "tweet"></div>');
+          var $timestamp = $('<div class= "timestamp"></div>');
           $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $timestamp.text('Posted on: ' + tweet.created_at);
-          $tweet.prependTo($body);
+          $timestamp.text('Posted ' + moment(tweet.created_at).fromNow());
+          $tweet.appendTo(".feed");
           $timestamp.appendTo($tweet);
           index -= 1;
         }
@@ -38,23 +61,24 @@
           console.log('oldIndex:', oldIndex);
           while (currentIndex > oldIndex) {
             var tweet = streams.home[currentIndex];
-            var $tweet = $('<div></div>');
-            var $timestamp = $('<div></div>');
+            var $tweet = $('<div class= "tweet"></div>');
+            var $timestamp = $('<div class= "timestamp"></div>');
             $tweet.text('@' + tweet.user + ': ' + tweet.message);
-            $timestamp.text('Posted on: ' + tweet.created_at);
-            $tweet.prependTo($body);
+            $timestamp.text('Posted ' + moment(tweet.created_at).fromNow());
+            $tweet.prependTo('.feed');
             $timestamp.appendTo($tweet);
             currentIndex -= 1; 
           }
 
           if(newIndex < 17) {
-            setTimeout(displayNewTweets, 1000);    
+            setTimeout(displayNewTweets, 2000);    
           } else {
             console.log(streams.home)
           }
         };
 
         displayNewTweets();
+
       });
 
     </script>
