@@ -40,7 +40,7 @@
             $tweet.text('@' + tweet.user + ': ' + tweet.message);
             $timestamp.text('Posted on: ' + tweet.created_at);
             $tweet.prependTo($body);
-            $timestamp.prependTo($body);
+            $timestamp.appendTo($tweet);
             currentIndex -= 1; 
           }
 
