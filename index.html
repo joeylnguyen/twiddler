@@ -10,9 +10,14 @@
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
+ 
+
+        // Displays the initial tweets in streams.home
+        var newIndex = streams.home.length - 1;
 
         var index = streams.home.length - 1;
-        while(index >= 0){
+        var counter = 0;
+        while (index >= 0) {
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
           $tweet.text('@' + tweet.user + ': ' + tweet.message);
@@ -20,6 +25,30 @@
           index -= 1;
         }
 
+
+        function displayNewTweets() {
+          var oldIndex = newIndex;
+          newIndex = streams.home.length - 1;
+          var currentIndex = streams.home.length - 1;
+          
+          console.log('newIndex:', newIndex);
+          console.log('oldIndex:', oldIndex);
+          while (currentIndex > oldIndex) {
+            var tweet = streams.home[currentIndex];
+            var $tweet = $('<div></div>');
+            $tweet.text('@' + tweet.user + ': ' + tweet.message);
+            $tweet.prependTo($body);
+            currentIndex -= 1; 
+          }
+
+          if(newIndex < 17) {
+            setTimeout(displayNewTweets, 1000);    
+          } else {
+            console.log(streams.home)
+          }
+        };
+
+        displayNewTweets();
       });
 
     </script>
