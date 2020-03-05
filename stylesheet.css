@@ -8,6 +8,7 @@ body {
 	height: 100vh;
 	overflow: scroll;
 	background-color: #FEF0E3;
+	font-style: "Helvetica", serif;
 }
 
 .banner {
@@ -15,9 +16,14 @@ body {
 	height: 60px;
 	overflow: hidden;
 	background-color: #00acee;
-	font-size: 40px;
+	font-size: 50px;
 	font-weight: bolder;
 	text-align: left;
+}
+
+#banner-title {
+	color: white;
+	font-family: "Helvetica", serif;
 }
 
 .mainbody {
@@ -30,21 +36,26 @@ body {
 
 .userStream {
 	width: 19%;
-	margin-left: 2%;
+	margin-left: 1%;
 	float: left;
 	height: 300px;
+	font-size: 25px;
 	background-color: white;
+	border-style: solid;
+	border-radius: 8px;
 }
 
 .twitterStream {
-	width: 71%;
+	width: 73%;
 	height: 100vw;
-	margin-right: 6%;
+	margin-right: 5%;
 	float: right;
 	font-size: 25px;
 	font-weight: bolder;
 	background-color: white;
 	overflow: auto;
+	border-style: solid;
+	border-radius: 8px;
 	
 }
 
@@ -52,20 +63,41 @@ body {
 	width: 94%;
 	height: 94%;
 	margin: 3% 3% 3% 3%;
-	font-weight: bold;
-	font-size: 20px;
+	font-weight: normal;
+	font-size: 18px;
 	overflow: auto;
+	text-overflow: all;
+	font-style: "Helvetica", serif;
 }
 
 .tweet {
 	color: black;
 	border-style: groove;
-	border-radius: 8px;
-	margin-bottom: 15px;
+	border-top: none;
+	margin-bottom: 14px;
+	font-style: "Helvetica", serif;
 
+}
+
+.user {
+	border-style: groove;
+	border-bottom: none;
+	font-size: 20px;
+	font-weight: bolder;
+	font-style: "Helvetica", serif;
 }
 
 .timestamp {
 	color: black;
-	font-size: 15px;
+	font-size: 13px;
+	float: right;
+	text-overflow: all;
+}
+
+.viewingMessage {
+	font-weight: bolder;
+	font-size: 20px;
+	margin-top: 30px;
+	border-top: solid;
+
 }
