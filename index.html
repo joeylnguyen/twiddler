@@ -55,8 +55,6 @@
           newIndex = streams.home.length - 1;
           var currentIndex = streams.home.length - 1;
           
-          console.log('newIndex:', newIndex);
-          console.log('oldIndex:', oldIndex);
           while (currentIndex > oldIndex) {
             var tweet = streams.home[currentIndex];
             var $tweet = $('<div class= "tweet"></div>');
@@ -79,21 +77,30 @@
           // might need to stop fetching new tweets for all tweets?
 
           // Loop through user's tweet data
-
-          // var index = streams.users.username.length - 1;
-          // while (index >= 0) {
-          //   var userTweet = streams.users.username[index];
-          //   var $tweet = $('<div class= "tweet"></div>');
-          //   var $timestamp = $('<div class= "timestamp"></div>');
-          //   $tweet.text('@' + username + ': ' + userTweet);
-          //   $timestamp.text('Posted ' + moment(tweet.created_at).fromNow());
-          //   $tweet.appendTo(".feed");
-          //   $timestamp.appendTo($tweet);
-          //   index -= 1;
-          // };
+          // var user;
+          var userData = streams.users; // {shawndrost: [], sharksforcheap: [], etc.}
+          console.log(userData);
+          // var usernameData = userData.user // user = shawndrost[{user: "shawndrost", message: "tweeet message here"}]
+          // for (var key in userData) {
+          //   if (username === key) {
+          //     user = key;
+          //   }
+          // }
+          var index = streams.users[username].length - 1;
+          while (index >= 0) {
+            var userTweet = streams.users[username][index].message;
+            console.log(userTweet);
+            var $tweet = $('<div class= "tweet"></div>');
+            var $timestamp = $('<div class= "timestamp"></div>');
+            $tweet.text('@' + username + ': ' + userTweet);
+            $timestamp.text('Posted ' + moment(tweet.created_at).fromNow());
+            $tweet.appendTo(".feed");
+            $timestamp.appendTo($tweet);
+            index -= 1;
+          };
         };
 
-        displayUserTweets();
+        displayUserTweets('douglascalhoun');
       });
 
     </script>
