@@ -30,6 +30,7 @@
 
       $(document).ready(function(){
         var $body = $('body');
+        var keepRefreshing = true;
         var $viewingMessage = $('<div class = "viewingMessage"></div>');
           $viewingMessage.text("entire feed");
           $viewingMessage.appendTo('.userStream');
@@ -46,6 +47,10 @@
           $user.text('@'+ tweet.user + ':');
           $tweet.text(tweet.message);
           $timestamp.text('Posted ' + moment(tweet.created_at).fromNow());
+          $user.on('click', function() {
+            displayUserTweets(tweet.user)
+            keepRefreshing = false;
+          });
           $user.appendTo(".feed");
           $tweet.appendTo(".feed");
           $timestamp.appendTo($tweet);
@@ -57,19 +62,24 @@
           var oldIndex = newIndex;
           newIndex = streams.home.length - 1;
           var currentIndex = streams.home.length - 1;
-          
-          while (currentIndex > oldIndex) {
-            var tweet = streams.home[currentIndex];
-            var $tweet = $('<div class= "tweet"></div>');
-            var $timestamp = $('<div class= "timestamp"></div>');
-            var $user = $('<div class= "user"></div>');
-            $user.text('@'+ tweet.user + ':');
-            $tweet.text(tweet.message);
-            $timestamp.text('Posted ' + moment(tweet.created_at).fromNow());
-            $tweet.prependTo(".feed");
-            $user.prependTo(".feed"); 
-            $timestamp.appendTo($tweet);
-            currentIndex -= 1; 
+          if(keepRefreshing) {
+            while (currentIndex > oldIndex) {
+              var tweet = streams.home[currentIndex];
+              var $tweet = $('<div class= "tweet"></div>');
+              var $timestamp = $('<div class="timestamp"></div>');
+              var $user = $('<div class="user"></div>');
+              $user.text('@'+ tweet.user + ':');
+              $tweet.text(tweet.message);
+              $timestamp.text('Posted ' + moment(tweet.created_at).fromNow());
+              $tweet.prependTo(".feed");
+              $user.on('click', function() {
+                displayUserTweets(tweet.user);
+                keepRefreshing = false;
+              });
+              $user.prependTo(".feed"); 
+              $timestamp.appendTo($tweet);
+              currentIndex -= 1; 
+            }
           }
           setTimeout(displayNewTweets, 4000);    
         };
@@ -79,6 +89,10 @@
 
         // display a specific user's tweets
         function displayUserTweets(username) {
+          //stop refreshing tweets by setting thing to false
+
+
+          console.log(username)
           $('.feed').html(''); // Clears out display
           $('viewingMessage').html('');
           var $viewingMessage = $('<div class = "viewingMessage"></div>');
@@ -93,13 +107,18 @@
             var userTweet = streams.users[username][index].message;
             var $tweet = $('<div class= "tweet"></div>');
             var $timestamp = $('<div class= "timestamp"></div>');
-            $tweet.text('@' + username + ': ' + userTweet);
+            var $user = $('<div class= "user"></div>');
+            $user.text('@'+ username + ':');
+            $tweet.text(userTweet);
             $timestamp.text('Posted ' + moment(tweet.created_at).fromNow());
+            $user.appendTo(".feed");
             $tweet.appendTo(".feed");
             $timestamp.appendTo($tweet);
             index -= 1;
           };
         };
+
+        //$('.user').on('click',displayUserTweets);
 
         // displayUserTweets('douglascalhoun');
       });
