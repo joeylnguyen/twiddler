@@ -13,26 +13,26 @@
   <body>
 
     <div class ="wrapper">
-      <div class= "banner">Twiddler</div>
+      <div class= "banner">
+        <div id= "banner-title">Twiddler</div>
+      </div>
       <div class= "mainbody">
-        <div class="userStream">Now viewing:
-          <div class="user"></div>
-        </div>
+        <div class="userStream">Now viewing
+      </div>
         <div class="twitterStream">Latest Tweets:
-          <div class="feed"></div>
+          <div class="feed">
         </div>
+    </div>
 
-
-      <div class="twitterStream"></div>
-      <div class="blue-box"></div>
-      <div class="clear">
       
     </div>
     <script>
 
       $(document).ready(function(){
         var $body = $('body');
- 
+        var $viewingMessage = $('<div class = "viewingMessage"></div>');
+          $viewingMessage.text("entire feed");
+          $viewingMessage.appendTo('.userStream');
 
         // Displays the initial tweets in streams.home
         var newIndex = streams.home.length - 1;
@@ -42,8 +42,11 @@
           var tweet = streams.home[index];
           var $tweet = $('<div class= "tweet"></div>');
           var $timestamp = $('<div class= "timestamp"></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
+          var $user = $('<div class= "user"></div>');
+          $user.text('@'+ tweet.user + ':');
+          $tweet.text(tweet.message);
           $timestamp.text('Posted ' + moment(tweet.created_at).fromNow());
+          $user.appendTo(".feed");
           $tweet.appendTo(".feed");
           $timestamp.appendTo($tweet);
           index -= 1;
@@ -59,9 +62,12 @@
             var tweet = streams.home[currentIndex];
             var $tweet = $('<div class= "tweet"></div>');
             var $timestamp = $('<div class= "timestamp"></div>');
-            $tweet.text('@' + tweet.user + ': ' + tweet.message);
+            var $user = $('<div class= "user"></div>');
+            $user.text('@'+ tweet.user + ':');
+            $tweet.text(tweet.message);
             $timestamp.text('Posted ' + moment(tweet.created_at).fromNow());
-            $tweet.prependTo('.feed');
+            $tweet.prependTo(".feed");
+            $user.prependTo(".feed"); 
             $timestamp.appendTo($tweet);
             currentIndex -= 1; 
           }
@@ -74,22 +80,17 @@
         // display a specific user's tweets
         function displayUserTweets(username) {
           $('.feed').html(''); // Clears out display
+          $('viewingMessage').html('');
+          var $viewingMessage = $('<div class = "viewingMessage"></div>');
+          $viewingMessage.text('@' + username +"'s feed");
+          $viewingMessage.appendTo('.userStream');
           // might need to stop fetching new tweets for all tweets?
 
-          // Loop through user's tweet data
-          // var user;
-          var userData = streams.users; // {shawndrost: [], sharksforcheap: [], etc.}
-          console.log(userData);
-          // var usernameData = userData.user // user = shawndrost[{user: "shawndrost", message: "tweeet message here"}]
-          // for (var key in userData) {
-          //   if (username === key) {
-          //     user = key;
-          //   }
-          // }
+          // Loop through user's tweet data 
+         
           var index = streams.users[username].length - 1;
           while (index >= 0) {
             var userTweet = streams.users[username][index].message;
-            console.log(userTweet);
             var $tweet = $('<div class= "tweet"></div>');
             var $timestamp = $('<div class= "timestamp"></div>');
             $tweet.text('@' + username + ': ' + userTweet);
@@ -100,7 +101,7 @@
           };
         };
 
-        displayUserTweets('douglascalhoun');
+        // displayUserTweets('douglascalhoun');
       });
 
     </script>
