@@ -32,14 +32,12 @@
 
       $(document).ready(function(){
         var $body = $('body');
-        $body.html();
  
 
         // Displays the initial tweets in streams.home
         var newIndex = streams.home.length - 1;
 
         var index = streams.home.length - 1;
-        var counter = 0;
         while (index >= 0) {
           var tweet = streams.home[index];
           var $tweet = $('<div class= "tweet"></div>');
@@ -51,7 +49,7 @@
           index -= 1;
         }
 
-
+        // Displays whatever new tweets are pushed to streams.home every 4 seconds
         function displayNewTweets() {
           var oldIndex = newIndex;
           newIndex = streams.home.length - 1;
@@ -69,16 +67,33 @@
             $timestamp.appendTo($tweet);
             currentIndex -= 1; 
           }
-
-          if(newIndex < 17) {
-            setTimeout(displayNewTweets, 2000);    
-          } else {
-            console.log(streams.home)
-          }
+          setTimeout(displayNewTweets, 4000);    
         };
 
         displayNewTweets();
 
+
+        // display a specific user's tweets
+        function displayUserTweets(username) {
+          $('.feed').html(''); // Clears out display
+          // might need to stop fetching new tweets for all tweets?
+
+          // Loop through user's tweet data
+
+          // var index = streams.users.username.length - 1;
+          // while (index >= 0) {
+          //   var userTweet = streams.users.username[index];
+          //   var $tweet = $('<div class= "tweet"></div>');
+          //   var $timestamp = $('<div class= "timestamp"></div>');
+          //   $tweet.text('@' + username + ': ' + userTweet);
+          //   $timestamp.text('Posted ' + moment(tweet.created_at).fromNow());
+          //   $tweet.appendTo(".feed");
+          //   $timestamp.appendTo($tweet);
+          //   index -= 1;
+          // };
+        };
+
+        displayUserTweets();
       });
 
     </script>
